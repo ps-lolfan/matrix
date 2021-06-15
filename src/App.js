@@ -15,7 +15,7 @@ const App = () => {
     return {
       point: {
         latitude: lngLat.lat,
-        longitude: lngLat.longitude
+        longitude: lngLat.lng
       }
     }
   }
@@ -30,7 +30,7 @@ const App = () => {
       id: 'route',
       type: 'line',
       source: {
-        type: geoJson,
+        type: 'geojson',
         data: geoJson
       },
       paint: {
@@ -46,11 +46,18 @@ const App = () => {
     const element = document.createElement('div')
     element.className = "marker-delivery"
 
+    const popupOffset = {
+      bottom: [0, -25]
+    }
+    const popup = new tt.Popup({ offset: popupOffset }).setHTML('This is you!')
+
     new tt.Marker({
       element: element
     })
       .setLngLat(lngLat)
       .addTo(map)
+      .setPopup(popup).togglePopup()
+
 
   }
 
@@ -106,6 +113,8 @@ const App = () => {
       const pointsForDestinations = locations.map((destination) => {
         return convertToPoints(destination)
       })
+
+      console.log(pointsForDestinations)
 
       const callParameters = {
         key: process.env.REACT_APP_MAP_KEY,
