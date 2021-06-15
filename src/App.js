@@ -114,7 +114,6 @@ const App = () => {
         return convertToPoints(destination)
       })
 
-      console.log(pointsForDestinations)
 
       const callParameters = {
         key: process.env.REACT_APP_MAP_KEY,
